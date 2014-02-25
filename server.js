@@ -9,7 +9,7 @@ if (sendgrid_username) {
     sendgrid = undefined;
     console.log("disabling email support");
 }
-var crypto = require('crypto');
+//var crypto = require('crypto');
 
 var port = Number(process.env.PORT || 5000);
 
@@ -65,7 +65,8 @@ io.sockets.on('connection', function(client){
     });
 
     client.on('subscribe', function(data) { 
-        var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
+	    //var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
+	    hash = "123456";
         console.log('joining room', hash);
         k = Object.keys(io.sockets.manager.roomClients[client.id]);
         client.join(hash); 
