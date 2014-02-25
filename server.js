@@ -11,7 +11,9 @@ if (sendgrid_username) {
 }
 var crypto = require('crypto');
 
-var io = require('socket.io').listen(5000, {log: false});
+var port = Number(process.env.PORT || 5000);
+
+var io = require('socket.io').listen(port, {log: false});
 io.sockets.on('connection', function(client){
 
     client.on('message', function(err, msg){
