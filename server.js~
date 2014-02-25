@@ -11,7 +11,7 @@ if (sendgrid_username) {
 }
 var crypto = require('crypto');
 
-var io = require('socket.io').listen(5000, {log: false});
+var io = require('socket.io').listen(2000, {log: false});
 io.sockets.on('connection', function(client){
 
     client.on('message', function(err, msg){
