@@ -1,15 +1,15 @@
-var sendgrid = require('sendgrid');
-var config = require('getconfig');
+//var sendgrid = require('sendgrid');
+//var config = require('getconfig');
 
-var sendgrid_username = config.SENDGRID_USERNAME;
-var sendgrid_password = config.SENDGRID_PASSWORD;
-if (sendgrid_username) {   
-    var sendgrid = require('sendgrid')(sendgrid_username, sendgrid_password);
-} else {
+//var sendgrid_username = config.SENDGRID_USERNAME;
+//var sendgrid_password = config.SENDGRID_PASSWORD;
+//if (sendgrid_username) {   
+//    var sendgrid = require('sendgrid')(sendgrid_username, sendgrid_password);
+//} else {
     sendgrid = undefined;
     console.log("disabling email support");
-}
-//var crypto = require('crypto');
+//}
+var crypto = require('crypto');
 
 var port = Number(process.env.PORT || 5000);
 
@@ -35,15 +35,15 @@ io.sockets.on('connection', function(client){
 
         today = new Date();
 
-        var email = new sendgrid.Email();
+	//        var email = new sendgrid.Email();
         
-        email.addTo(email_addr);
-        email.setFrom("iOStream");
-        email.setSubject('[iOStream] Screenshots from ' + today.toDateString());
+	//        email.addTo(email_addr);
+        //email.setFrom("iOStream");
+        //email.setSubject('[iOStream] Screenshots from ' + today.toDateString());
 
-        email.setText('Hi! Attached are your screenshots with annotations from ' + today.toLocaleString());
-        email.addHeader({'X-Sent-Using': 'SendGrid-API'});
-        email.addHeader({'X-Transport': 'web'});
+        //email.setText('Hi! Attached are your screenshots with annotations from ' + today.toLocaleString());
+        //email.addHeader({'X-Sent-Using': 'SendGrid-API'});
+        //email.addHeader({'X-Transport': 'web'});
 
         for (ii = 0; ii < imgs.length; ii++)
         {
@@ -52,11 +52,11 @@ io.sockets.on('connection', function(client){
 
         var buf = new Buffer(b64string, 'base64');
 
-        email.addFile({content: buf, filename: 'ss'+ (ii + 1) +'.jpg'});
+        //email.addFile({content: buf, filename: 'ss'+ (ii + 1) +'.jpg'});
         }
 
 
-        sendgrid.send(email, function(err, json) {  
+        //sendgrid.send(email, function(err, json) {  
         if (err) { return console.error(err); }
           console.log(json);
         });
@@ -65,8 +65,8 @@ io.sockets.on('connection', function(client){
     });
 
     client.on('subscribe', function(data) { 
-	    //var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
-	    hash = "123456";
+	var hash = crypto.createHash('md5').update(data.room).digest('hex').substring(0, 8).toLowerCase();
+
         console.log('joining room', hash);
         k = Object.keys(io.sockets.manager.roomClients[client.id]);
         client.join(hash); 
