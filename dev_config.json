@@ -21,6 +21,7 @@
     "logfmt": "~0.21.0",
     "express": "~3.4.8",
     "getconfig": "~0.3.0",
-    "sendgrid": "~1.0.2"
+    "sendgrid": "~1.0.2",
+    "socket.io": "~0.9.16"
   }
 }
